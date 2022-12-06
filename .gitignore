@@ -1,0 +1,12 @@
+# Build files
+bin/
+*.o
+*.iso
+*.img
+*.elf
+
+.ccls-cache/
+compile_commands.json
+
+# User config
+.envrc
