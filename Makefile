@@ -36,8 +36,8 @@ dirs:
 	mkdir -p bin
 
 mbr: $(MBR_OBJ)
-#	$(LD) -o ./bin/$(MBR) $^ $(LDFLAGS) -Ttext 0x0 --oformat=binary
-	$(LD) -o ./bin/$(MBR) $^ $(LDFLAGS) -Ttext 0x7c00 --oformat=binary
+	$(LD) -o ./bin/$(MBR) $^ $(LDFLAGS) -Ttext 0x0 --oformat=binary
+#	$(LD) -o ./bin/$(MBR) $^ $(LDFLAGS) -Ttext 0x7c00 --oformat=binary
 
 # used for debugging
 #	$(LD) -o ./bin/$(MBR:.bin=.elf) $^ $(LDFLAGS) -Ttext 0x600
@@ -48,8 +48,8 @@ kernel: $(KERNEL_OBJ)
 
 # used for debugging
 	$(LD) -o ./bin/$(KERNEL:.bin=.elf) $^ $(LDFLAGS) -Tsrc/link.ld --oformat=elf32-i386
-
-iso: dirs mbr kernel
+# kernel here
+iso: dirs mbr 
 	dd if=/dev/zero of=$(ISO) bs=512 count=2880
 	dd if=bin/$(MBR) of=$(ISO) conv=notrunc bs=512 seek=0 count=1
-	dd if=bin/$(KERNEL) of=$(ISO) conv=notrunc bs=512 seek=1 count=2048
+	# dd if=bin/$(KERNEL) of=$(ISO) conv=notrunc bs=512 seek=1 count=2048
