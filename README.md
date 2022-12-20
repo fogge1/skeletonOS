@@ -1,11 +1,20 @@
-# skeletonOS
+# SkeletonOS
 
-My try at making a bare bones kernel and bootloader
+Bare bones kernel and bootloader
 
-## Running
+## Getting started
 
-For Qemu
+### Installing
+```bash
+git clone https://github.com/fogge1/skeletonOS.git
+cd skeletonOS
+```
+### Running
+```bash
+make iso
+qemu-system-i386 -drive format=raw,file=skeletonOS.iso
+```
 
-1. `make iso` to create iso
-2. `chmod +x run.sh`
-3. ``./run.sh``
+## License
+SkeletonOS is licensed under a GPL-2.0 license.
+
