@@ -3,7 +3,7 @@
 MAKE=0
 DEBUG=0
 
-while getopts ":m:d" opt; do
+while getopts "md" opt; do
   case "$opt" in
     m)
       echo tets
