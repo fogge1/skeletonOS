@@ -1,8 +1,8 @@
 ; vim: ft=nasm
 [bits 16]
-; offset
-; mov ax, 0x07c0
-; mov ds, ax
+
+KERNEL_OFFSET equ 0x1000
+
 _lowstart:
 xor ax, ax
 mov ds, ax
@@ -20,13 +20,15 @@ call print
 
 mov [BOOT_DRIVE], dl
 
-mov bp, 0x8000
+mov bp, 0x9000
 mov sp, bp
 
-mov bx, 0x9000
-mov dh, 5
-mov dl, [BOOT_DRIVE]
-call disk_load
+;mov bx, 0x9000
+;mov dh, 5
+;mov dl, [BOOT_DRIVE]
+;call disk_load
+
+call load_kernel
 
 call switch_to_pm
 
@@ -84,9 +86,16 @@ switch_to_pm:
 
   jmp CODE_SEG:start_pm
 
-BOOT_DRIVE: db 0
-HELLO_MSG: db "Hello world!", 0
-DISK_ERROR: db "Disk read error!", 0
+load_kernel:
+  mov bx, MSG_LOAD_KERNEL
+  call print
+
+  mov bx, KERNEL_OFFSET
+  mov dh, 15
+  mov dl, [BOOT_DRIVE]
+  call disk_load
+
+  ret
 
 [bits 32]
 
@@ -101,8 +110,16 @@ start_pm:
 
   mov ebp, 0x90000
   mov esp, ebp
+  
+  call KERNEL_OFFSET
 
   jmp $
+
+TEST_MSG: db "test", 0
+MSG_LOAD_KERNEL: db "Loading kernel", 0
+BOOT_DRIVE: db 0
+HELLO_MSG: db "Hello world!", 0
+DISK_ERROR: db "Disk read error!", 0
 
 times 510-($-$$) db 0
 ; Magic bios numbers

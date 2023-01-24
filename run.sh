@@ -16,8 +16,6 @@ while getopts "md" opt; do
 done
 shift $((OPTIND -1))
 
-echo $MAKE
-
 [ "$MAKE" -eq 1 ] && make iso
 
 

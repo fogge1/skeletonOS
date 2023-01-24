@@ -4,6 +4,18 @@ define qq
   quit
 end
 
+# 32-bit protected mode
+define arch_pm
+  unset tdesc filename
+  set architecture i386
+end
+
+# 16-bit real mode
+define arch_rm
+  set tdesc filename gdb/target.xml
+  set architecture i8086
+end
+
 # debug Master Boot Record
 define debug_mbr
   file bin/mbr.elf
