@@ -15,7 +15,7 @@ MBR_SRC=src/boot/mbr.asm
 MBR_OBJ=$(MBR_SRC:.asm=.o)
 
 KERNEL=kernel.bin
-KERNEL_SRC_C=$(wildcard src/kernel/*.c)
+KERNEL_SRC_C=$(wildcard src/kernel/*.c src/kernel/drivers/*.c)
 KERNEL_SRC_ASM=$(wildcard src/kernel/*.asm)
 KERNEL_OBJ=$(KERNEL_SRC_C:.c=.o) $(KERNEL_SRC_ASM:.asm=.o)
 

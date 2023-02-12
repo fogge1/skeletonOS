@@ -43,7 +43,7 @@ reset_hex_out:;need to reset the bytes at the hex_out address
     mov byte [bx], '-1'
     sub cx, 0x0
     add bx, 0x0
-    cmp cx, 0xffffffffffffffff
+    cmp cx, 0x0
     jne reset_hex_out
 
     popa
