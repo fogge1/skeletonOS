@@ -26,11 +26,11 @@ void *irq_routines[16] = {
   0, 0, 0, 0, 0, 0, 0, 0
 };
 
-void irq_install_handler(int irq, void (*handler)(struct int_regs *r)) {
+void irq_install_handler(uint8_t irq, void (*handler)(struct int_regs *r)) {
   irq_routines[irq] = handler;
 }
 
-void irq_uninstall_handler(int irq) {
+void irq_uninstall_handler(uint8_t irq) {
   irq_routines[irq] = 0;
 }
 
@@ -68,16 +68,16 @@ void irq_install(void) {
   _idt_set_gate(IRQ8_OFFSET+7, (uint32_t)_irqf, 0x08, 0x8e);
 }
 
-void _irq_handler(struct int_regs *r) {
+void _irq_handler(struct int_regs r) {
   void (*handler)(struct int_regs *r);
 
-  handler = irq_routines[r->int_no - 32];
+  handler = irq_routines[r.int_no];
 
   if (handler) {
-    handler(r);
+    handler(&r);
   }
 
-  if (r->int_no >= 40) {
+  if (r.int_no >= 40) {
     outportb(0xA0, 0x20);
   }
 

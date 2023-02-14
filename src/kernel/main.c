@@ -2,6 +2,7 @@
 #include "isr.h"
 #include "idt.h"
 #include "irq.h"
+#include "timer.h"
 
 void main(void) {
   clear_screen();
@@ -11,8 +12,14 @@ void main(void) {
   isrs_install();
   irq_install();
 
-  int a = 23;
-  __asm__ volatile("idiv %1, %0" : "=a"(a) : "d"(0));
+  timer_install();
+
+  __asm__ volatile("sti");
+  
+  //int a = 23;
+  //__asm__ volatile("idiv %1, %0" : "=a"(a) : "d"(0));
+  
+   
 
   for(;;);
 }
