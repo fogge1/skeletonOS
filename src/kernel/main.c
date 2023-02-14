@@ -1,4 +1,5 @@
 #include "drivers/screen.h"
+#include "drivers/keyboard.h"
 #include "isr.h"
 #include "idt.h"
 #include "irq.h"
@@ -6,14 +7,14 @@
 
 void main(void) {
   clear_screen();
-  print_str("test2", 0, 0);
+  //print_str("test2", 0, 0);
   
   idt_install();
   isrs_install();
   irq_install();
 
-  timer_install();
-
+  // timer_install();
+  keyboard_install();
   __asm__ volatile("sti");
   
   //int a = 23;
