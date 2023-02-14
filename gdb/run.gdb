@@ -68,6 +68,15 @@ define debug_stage2pe
   continue
 end
 
+define debug_kernel
+  file bin/kernel.elf
+
+  arch_pm
+
+  break main
+  continue
+end
+
 # run
 # add-symbol-file gdb/structs.o 0
 
